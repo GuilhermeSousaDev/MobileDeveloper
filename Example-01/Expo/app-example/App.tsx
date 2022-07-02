@@ -1,7 +1,14 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { StyleSheet, View, FlatList, Text, Image} from "react-native";
+import { 
+  StyleSheet, 
+  View, 
+  FlatList, 
+  Text,
+  Image, 
+  Button,
+} from "react-native";
 import api from "./config/Axios";
 
 interface INews {
@@ -29,7 +36,7 @@ export default function App() {
         setNews(data.articles);
       }
     })();
-  });
+  }); 
 
   return (
     <View style={styles.container}>
@@ -41,6 +48,10 @@ export default function App() {
             <Text>{ item.title }</Text>
             <Text>Author: { item.author }</Text>
             <Image source={{ uri: item.urlToImage }} style={styles.imageStyle} />
+            <Button 
+              title="Click" 
+              onPress={() => console.log(item.title)}
+            />
           </View>
         )}
       />
@@ -61,7 +72,7 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   imageStyle: {
-    width: '200px',
-    height: '200px'
+    width: 200,
+    height: 200
   }
 });
