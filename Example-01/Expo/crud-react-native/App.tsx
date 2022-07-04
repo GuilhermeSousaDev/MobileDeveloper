@@ -1,48 +1,62 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { 
+  StyleSheet,
+  Text, 
+  TextInput, 
+  View, 
+  TouchableOpacity, 
+  FlatList,
+  ScrollView,
+} from 'react-native';
+import RegisterUser from './components/RegisterUser';
+import Users from './components/Users';
 import api from './services/Axios';
+
+interface IUsers {
+  id: number;
+  firstName: string;
+  lastName: string;
+  age: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export default function App() {
   const [firstName, setFirstName] = useState<string>();
   const [lastName, setLastName] = useState<string>();
   const [age, setAge] = useState<number>();
+  const [show, setShow] = useState<boolean>(false);
+
+  const [users, setUsers] = useState<IUsers[]>();
 
   const registerUserInDatabase = useCallback(async () => {
-    const { data } = await api.post('api', {
-      firstName,
-      lastName,
-      age,
-    });
-    
-    console.log(data);
-  }, []);
+    await api.post<IUsers>('api', { firstName, lastName, age });
+  }, [firstName, lastName, age]);
 
   useEffect(() => {
     (async () => {
       const { data } = await api.get('api');
 
-      console.log(data);
+      setUsers(data);
     })();
   }, []);
 
   return (
-    <View style={styles.container}>
-      <TextInput style={styles.textInput}
-        onChangeText={text => setFirstName(text)}
-        placeholder="FirstName..."
-      />
-      <TextInput style={styles.textInput}
-        onChangeText={text => setLastName(text)}
-        placeholder="LastName..."
-      />
-      <TextInput style={styles.textInput}
-        onChangeText={text => setAge(Number(text))}
-        placeholder="Age..."
-        keyboardType='numeric'
-      />
+    <View style={styles.container}>  
+      <View style={styles.flatList}>
+        <FlatList 
+          data={users}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <Users user={item} />}
+        />
+       </View>
 
-      <TouchableOpacity style={styles.button} onPress={registerUserInDatabase}>
-        <Text style={{ color: '#fff' }}>Enviar</Text>
+      <Text>
+        { show? <RegisterUser /> : '' }
+      </Text>
+
+      <TouchableOpacity style={styles.button} onPress={() => setShow(!show)}>
+        <Text style={{ color: '#fff' }}>+</Text>
       </TouchableOpacity>
     </View>
   );
@@ -54,6 +68,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  flatList: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    width: '100%',
+    marginTop: 100
   },
   button: {
     color: '#fff', 
