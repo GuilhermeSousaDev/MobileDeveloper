@@ -2,11 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { 
   StyleSheet,
   Text, 
-  TextInput, 
   View, 
   TouchableOpacity, 
   FlatList,
-  ScrollView,
 } from 'react-native';
 import RegisterUser from './components/RegisterUser';
 import Users from './components/Users';
