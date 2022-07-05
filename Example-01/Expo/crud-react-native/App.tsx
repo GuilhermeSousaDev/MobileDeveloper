@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   StyleSheet,
   Text, 
@@ -20,16 +20,8 @@ interface IUsers {
 }
 
 export default function App() {
-  const [firstName, setFirstName] = useState<string>();
-  const [lastName, setLastName] = useState<string>();
-  const [age, setAge] = useState<number>();
   const [show, setShow] = useState<boolean>(false);
-
   const [users, setUsers] = useState<IUsers[]>();
-
-  const registerUserInDatabase = useCallback(async () => {
-    await api.post<IUsers>('api', { firstName, lastName, age });
-  }, [firstName, lastName, age]);
 
   useEffect(() => {
     (async () => {
@@ -37,7 +29,7 @@ export default function App() {
 
       setUsers(data);
     })();
-  }, []);
+  }, [users]);
 
   return (
     <View style={styles.container}>  
@@ -50,7 +42,7 @@ export default function App() {
        </View>
 
       <Text>
-        { show? <RegisterUser /> : '' }
+        { show? <RegisterUser setShow={setShow} /> : '' }
       </Text>
 
       <TouchableOpacity style={styles.button} onPress={() => setShow(!show)}>

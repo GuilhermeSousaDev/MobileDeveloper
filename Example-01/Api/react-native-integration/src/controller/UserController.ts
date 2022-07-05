@@ -67,9 +67,9 @@ export class UserController {
 
         const user = await userRepository.findOne(id);
         
-        if (user) {
-            await userRepository.delete(user);
-        }
+        if (!user) return res.status(404).json([]);
+
+        await userRepository.delete(user.id);
 
         return res.json([]);
     }

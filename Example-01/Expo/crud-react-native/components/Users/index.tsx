@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
+import api from "../../services/Axios";
 
 interface IUsers {
     user: {
@@ -44,7 +45,10 @@ const Users: FC<IUsers> = ({ user }) => {
                     { date?.minutes }:
                     { date?.seconds }
                 </Text>
-                <Button title="Excluir" />
+                <Button 
+                    title="Excluir" 
+                    onPress={async () => await api.delete(`api/${user.id}`)} 
+                />
             </View>
         </>
     )
