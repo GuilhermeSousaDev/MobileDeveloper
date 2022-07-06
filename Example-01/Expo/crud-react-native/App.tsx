@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { 
-  StyleSheet,
   Text, 
   View, 
   TouchableOpacity, 
@@ -8,16 +7,9 @@ import {
 } from 'react-native';
 import RegisterUser from './components/RegisterUser';
 import Users from './components/Users';
+import { IUsers } from './interfaces/IUsers';
 import api from './services/Axios';
-
-interface IUsers {
-  id: number;
-  firstName: string;
-  lastName: string;
-  age: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import styles from './style';
 
 export default function App() {
   const [show, setShow] = useState<boolean>(false);
@@ -51,36 +43,3 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  flatList: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    width: '100%',
-    marginTop: 100
-  },
-  button: {
-    color: '#fff', 
-    marginTop: 15,
-    borderColor: '#fff',
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-  },
-  textInput: {
-    width: 300,
-    height: 50,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    textAlign: 'center',
-    marginTop: 10
-  }
-});

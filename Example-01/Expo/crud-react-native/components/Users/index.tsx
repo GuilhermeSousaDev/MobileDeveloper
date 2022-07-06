@@ -1,6 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
+import { IDate } from "../../interfaces/IDate";
 import api from "../../services/Axios";
+import EditUser from "../EditUser";
+import styles from "./style";
 
 interface IUsers {
     user: {
@@ -13,15 +16,9 @@ interface IUsers {
     }
 }
 
-interface IDate {
-    day: string;
-    hours: string | number;
-    minutes: string | number;
-    seconds: string | number;
-}
-
 const Users: FC<IUsers> = ({ user }) => {
     const [date, setDate] = useState<IDate>();
+    const [show, setShow] = useState<boolean>(false);
 
     useEffect(() => {
         const date = new Date(user.createdAt);
@@ -45,26 +42,25 @@ const Users: FC<IUsers> = ({ user }) => {
                     { date?.minutes }:
                     { date?.seconds }
                 </Text>
+
+                <Text style={styles.editUserArea}>
+                    { show? 
+                        <EditUser id={user.id} setShow={setShow} />
+                        : '' 
+                    }
+                </Text>
+
                 <Button 
-                    title="Excluir" 
+                    title="Delete" 
                     onPress={async () => await api.delete(`api/${user.id}`)} 
+                />
+                <Button 
+                    title="Edit"
+                    onPress={() => setShow(!show)}
                 />
             </View>
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    userView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: '#000',
-        borderWidth: 1,
-        padding: 10,
-        marginTop: 10,
-        width: 300,
-    }
-})
 
 export default Users;
