@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
-import { Text, TextInput } from "react-native";
+import { Platform } from 'react-native';
+import { StyleSheet, Text, TextInput } from "react-native";
 
 const HandlingInputText: FC = () => {
   const [text, setText] = useState<string>();
@@ -7,7 +8,7 @@ const HandlingInputText: FC = () => {
   return (
     <>
       <TextInput
-        style={{ height: 40, borderColor: "#000" }}
+        style={styles.textInput}
         placeholder="Type here to translate!"
         onChangeText={(txt) => setText(txt)}
         defaultValue={text}
@@ -22,5 +23,26 @@ const HandlingInputText: FC = () => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  textInput: {
+    marginTop: 50,
+    borderWidth: 1,
+    ...Platform.select({
+      android: {
+        borderColor: 'green',
+        height: 40,
+      },
+      ios: {
+        borderColor: '#000',
+        height: 50
+      },
+      default: {
+        borderColor: 'blue',
+        height: 30
+      }
+    }),
+  }
+});
 
 export default HandlingInputText;
