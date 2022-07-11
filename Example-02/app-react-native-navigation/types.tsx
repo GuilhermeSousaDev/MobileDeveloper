@@ -18,8 +18,16 @@ export type RootStackParamList = {
   Modal: undefined;
   NotFound: undefined;
   Home: undefined;
-  About: undefined;
+  About: { name: string };
 };
+
+export type IParams = {
+  route: {
+    params: {
+      name: string;
+    };
+  }
+}
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
   RootStackParamList,

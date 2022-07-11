@@ -9,7 +9,7 @@ const Home = ({ navigation }: RootStackScreenProps<'Home'>) => {
             <Text>Home Page</Text>
             <Button 
                 title="About"
-                onPress={() => navigation.navigate('About')}
+                onPress={() => navigation.navigate('About', { name: 'Guilherme' })}
             />
 
             <Button 
