@@ -1,11 +1,15 @@
 import "reflect-metadata";
+import http from 'http';
 import express from 'express';
 import cors from 'cors';
 
 import './typeorm/connection';
 import routes from "./routes";
 
+import { Server } from 'socket.io';
+
 const app = express();
+const server = http.createServer(app);
 
 app.use(cors());
 app.use(express.json());
@@ -13,4 +17,10 @@ app.use(express.urlencoded());
 
 app.use('/api', routes);
 
-app.listen(8081, () => console.log("Iniciado"));
+const io = new Server(server);
+
+io.on('connection', socket => {
+    console.log(`client connected ${socket.id}`);
+});
+
+server.listen(8081, () => console.log("Iniciado"));
