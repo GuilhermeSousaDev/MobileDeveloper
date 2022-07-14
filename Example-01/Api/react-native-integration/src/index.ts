@@ -21,6 +21,10 @@ const io = new Server(server);
 
 io.on('connection', socket => {
     console.log(`client connected ${socket.id}`);
+
+    socket.on('message', (data) => {
+        console.log(data);
+    });
 });
 
 server.listen(8081, () => console.log("Iniciado"));

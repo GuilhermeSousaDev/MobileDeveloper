@@ -1,13 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-native";
 import { Text, View } from "react-native";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import { RootStackScreenProps } from "../types";
 
 const Home = ({ navigation }: RootStackScreenProps<"Home">) => {
-    useEffect(() => {
-        const server = io('http://localhost:8081');
+    const [server, setServer] = useState<Socket>(io('http://localhost:8081'));
+    const [data] = useState<{ name: string, age: number }>({
+      name: 'Guilherme', age: 17
+    });
 
+    useEffect(() => {
         server.on('connection', (socket) => {
             console.log('client connected ' + socket.id)
         })
@@ -25,6 +28,8 @@ const Home = ({ navigation }: RootStackScreenProps<"Home">) => {
         title="Change Title"
         onPress={() => navigation.setOptions({ title: "Init" })}
       />
+
+      <Button title="Socket emit" onPress={() => server.emit('message', data)} />
     </View>
   );
 };
