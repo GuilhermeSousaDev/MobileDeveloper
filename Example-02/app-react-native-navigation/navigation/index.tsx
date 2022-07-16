@@ -16,6 +16,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import Home from '../screens/Home';
 import About from '../screens/About';
 import Profile from '../screens/Profile';
+import Chat from '../screens/Chat';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -37,6 +38,7 @@ function RootNavigator() {
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Screen name="Home" component={Home} options={{ title: 'Bem Vindo' }} />
       <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="Chat" component={Chat} options={{ title: 'Chat Online' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>

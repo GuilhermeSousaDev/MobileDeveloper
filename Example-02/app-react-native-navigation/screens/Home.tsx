@@ -5,7 +5,7 @@ import { io, Socket } from "socket.io-client";
 import { RootStackScreenProps } from "../types";
 
 const Home = ({ navigation }: RootStackScreenProps<"Home">) => {
-    const [server, setServer] = useState<Socket>(io('http://localhost:8081'));
+    const [server, setServer] = useState<Socket>(io("http://192.168.1.11:3000"));
     const [data] = useState<{ name: string, age: number }>({
       name: 'Guilherme', age: 17
     });

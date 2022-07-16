@@ -19,6 +19,7 @@ export type RootStackParamList = {
   NotFound: undefined;
   Home: undefined;
   About: { name: string };
+  Chat: undefined;
 };
 
 export type IParams = {
