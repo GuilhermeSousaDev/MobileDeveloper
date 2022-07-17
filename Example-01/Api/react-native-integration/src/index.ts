@@ -15,10 +15,16 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
 
-io.on('connection', (socket) => {
-    console.log(`Client connected ${socket.id}`);
-});
-
 app.use('/api', routes);
 
-server.listen(3000, () => console.log("Iniciado"));
+io.on('connection', (socket) => {
+    console.log(`Client connected ${socket.id}`);
+
+    socket.on('message', data => {
+        console.log(data);
+
+        io.emit('message', data);
+    });
+});
+
+server.listen(8081, () => console.log("Iniciado"));

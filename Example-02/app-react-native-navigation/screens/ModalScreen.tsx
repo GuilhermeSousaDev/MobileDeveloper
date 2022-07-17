@@ -17,6 +17,10 @@ export default function ModalScreen({ navigation }: RootStackScreenProps<'Modal'
         <Text>Home</Text>
       </Pressable>
 
+      <Pressable onPress={() => navigation.navigate('Chat')}  >
+        <Text>Chat</Text>
+      </Pressable>
+
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
   );
