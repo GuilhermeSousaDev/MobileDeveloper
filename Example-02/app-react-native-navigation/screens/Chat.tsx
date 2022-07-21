@@ -1,17 +1,20 @@
-import React, { useCallback, useState } from 'react';
-import { Button, TextInput, View } from "react-native";
-import { io, Socket } from 'socket.io-client';
+import React, { useCallback, useEffect, useState } from 'react';
+import { AsyncStorage, Button, TextInput, View } from "react-native";
+import io, { connect, Socket } from 'socket.io-client';
 
 export default function Chat() {
     const [message, setMessage] = useState<string>('');
-    const [socket, setSocket] = useState<Socket>(io("ws://192.168.1.11:8081"));
+    const [socket, setSocket] = useState<Socket>();
     const [data] = useState<{ name: string, age: number }>({
       name: 'Guilherme', age: 17
     });
 
-    const submitMessage = useCallback(() => {
-        socket.emit('message', message);
-        setMessage('');
+    useEffect(() => {
+        setSocket(io('http://192.168.1.7:8081'));
+    }, []);
+
+    const connectNativeSocket = useCallback(() => {
+        socket?.emit('chat message', data);
     }, []);
 
     return(
@@ -20,9 +23,9 @@ export default function Chat() {
                 value={message}
                 autoCorrect={false} 
                 onChangeText={message => setMessage(message)} 
-            />
+            /> 
 
-            <Button title="Send Message" onPress={submitMessage} />
+            <Button title="Conect NativeSocket" onPress={connectNativeSocket} />
         </View>
     )
 }

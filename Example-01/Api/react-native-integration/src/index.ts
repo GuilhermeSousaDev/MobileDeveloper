@@ -9,7 +9,12 @@ import { Server } from "socket.io";
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, { 
+    cors: { 
+        origin: "*", 
+        methods: ['GET', 'POST'] 
+    } 
+});
 
 app.use(cors());
 app.use(express.json());
@@ -25,6 +30,10 @@ io.on('connection', (socket) => {
 
         io.emit('message', data);
     });
+});
+
+io.on('chat message', (socket) => {
+    console.log(socket);
 });
 
 server.listen(8081, () => console.log("Iniciado"));

@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Button } from "react-native";
 import { Text, View } from "react-native";
-import { io, Socket } from "socket.io-client";
+import * as SecureStore from 'expo-secure-store';
 import { RootStackScreenProps } from "../types";
 
 const Home = ({ navigation }: RootStackScreenProps<"Home">) => {
-    const [server, setServer] = useState<Socket>(io("http://192.168.1.11:3000"));
-    const [data] = useState<{ name: string, age: number }>({
-      name: 'Guilherme', age: 17
-    });
+  const [data] = useState<{ name: string, age: number }>({
+    name: 'Guilherme', age: 17
+  });
 
-    useEffect(() => {
-        server.on('connection', (socket) => {
-            console.log('client connected ' + socket.id)
-        })
-    }, []);
+  const save = useCallback(async (key, value) => {
+    await SecureStore.setItemAsync(key, value);
+  }, []);
+
+  const getKeyValue = useCallback(async (key) => {
+    const value = await SecureStore.getItemAsync(key);
+
+    return value
+  }, []);
 
   return (
     <View style={{ backgroundColor: "#fff" }}>
@@ -29,7 +32,15 @@ const Home = ({ navigation }: RootStackScreenProps<"Home">) => {
         onPress={() => navigation.setOptions({ title: "Init" })}
       />
 
-      <Button title="Socket emit" onPress={() => server.emit('message', data)} />
+      <Button 
+        title="Save ExpoStore" 
+        onPress={() => save('name', data.name)} 
+      />
+
+      <Button 
+        title="Get ExpoStore" 
+        onPress={async () => console.log(await getKeyValue('name'))} 
+      />
     </View>
   );
 };
