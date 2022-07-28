@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ImageBackground } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require('./image.jpeg')} style={styles.container}>
       <View style={styles.box}></View>
       <View style={[styles.box, styles.children]}></View>
       <View style={styles.box}></View>
@@ -13,9 +13,9 @@ export default function App() {
       <View style={styles.box}></View>
       <View style={styles.box}></View>
       <View style={styles.box}></View>
-      <View style={styles.box}></View>
+      <ImageBackground source={require('./image.jpeg')} style={[styles.box, styles.border]}></ImageBackground>
       <StatusBar style="auto" />
-    </View>
+    </ImageBackground>
   );
 }
 
@@ -39,5 +39,8 @@ const styles = StyleSheet.create({
   children: {
     alignSelf: 'center',
     backgroundColor: 'blue'
+  },
+  border: {
+    borderRadius: 15
   }
 });
