@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { 
   StyleSheet, 
   Text, 
@@ -7,10 +8,21 @@ import {
   View 
 } from "react-native";
 
-export default function Touchables() {
+type IParams = {
+  route: {
+    params: {
+      name: string;
+    }
+  }
+}
+
+export default function Touchables({ route }: IParams) {
+  const [show, setShow] = useState<boolean>(false);
+  const [params] = useState<string>(route.params.name);
+  
   return (
     <View>
-      <TouchableHighlight>
+      <TouchableHighlight onLongPress={() => show === false ? setShow(true) : setShow(false)}>
           <Text style={styles.button}>Press</Text>
         </TouchableHighlight>
         <TouchableNativeFeedback>
@@ -19,6 +31,8 @@ export default function Touchables() {
         <TouchableOpacity>
           <Text style={styles.button}>Press</Text>
       </TouchableOpacity>
+
+      <Text>{ show ? params : '' }</Text>
     </View>
   )
 }
