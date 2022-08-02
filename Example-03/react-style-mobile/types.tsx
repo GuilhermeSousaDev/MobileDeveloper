@@ -10,6 +10,7 @@
    Home: undefined;
    Touchables: undefined;
    ImagesBackground: undefined;
+   Animations: undefined;
  };
  
  export type IParams = {

@@ -26,7 +26,11 @@ export default function Home({ navigation, route }: IParams) {
                 onPress={() => navigation.navigate('Touchables', { name: 'Touch' })} />
             <Button 
                 title="ImagesBackground Screen"
-                onPress={() => navigation.navigate('ImageBackground')}
+                onPress={() => navigation.navigate('ImagesBackground')}
+            />
+            <Button 
+                title="Animations Screen"
+                onPress={() => navigation.navigate('Animations')}
             />
         </View>
     )
