@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { View, Text, Button } from "react-native";
 
 type IParams = {
@@ -14,10 +13,6 @@ type IParams = {
 }
 
 export default function Home({ navigation, route }: IParams) {
-    useEffect(() => {
-        console.log(navigation, route)
-    });
-
     return (
         <View>
             <Text>Home</Text>

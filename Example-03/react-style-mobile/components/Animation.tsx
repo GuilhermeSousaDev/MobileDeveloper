@@ -2,37 +2,34 @@ import React, { useEffect, useState } from 'react';
 import { Animated, Easing, StyleSheet, Text } from "react-native";
 
 export default function Animation() {
-    const [fadeAnim] = useState(new Animated.Value(0));
-    const [scale] = useState(new Animated.Value(0));
+    const [opacityAnim] = useState(new Animated.Value(0));
+    const [scaleAnim] = useState(new Animated.Value(0));
     
     useEffect(() => {
-        Animated.timing(fadeAnim, {
+        Animated.sequence([
+            Animated.timing(opacityAnim, {
                 toValue: 1,
                 duration: 10000,
                 useNativeDriver: true
-            }
-        ).start();
-
-        Animated.timing(scale, {
-            toValue: 1,
-            duration: 3000,
-            easing: Easing.bounce,
-            useNativeDriver: true
-        }).start();
-    }, [fadeAnim])
+            }),
+            Animated.timing(scaleAnim, {
+                toValue: 1,
+                duration: 3000,
+                easing: Easing.bounce,
+                useNativeDriver: true
+            }),
+        ]).start();
+    }, [opacityAnim, scaleAnim]);
 
     return (
-        <Animated.View 
-            style={[
-                styles.container, 
-                { 
-                    opacity: fadeAnim,
-                }
-            ]}>
+        <Animated.View style={[ styles.container, { opacity: opacityAnim } ]}>
             <Text style={styles.box}>Box</Text>
-            <Animated.View style={[ styles.box, { transform: [{ scale }] }]}>
+
+            <Animated.View style={[ styles.box, { transform: [{ scale: scaleAnim }] }]}>
                 <Text>Box 2</Text>
             </Animated.View>
+
+            
         </Animated.View>
     )
 }
