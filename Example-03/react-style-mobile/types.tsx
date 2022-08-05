@@ -11,6 +11,7 @@
    Touchables: undefined;
    ImagesBackground: undefined;
    Animations: undefined;
+   SlideAnimation: undefined;
  };
  
  export type IParams = {

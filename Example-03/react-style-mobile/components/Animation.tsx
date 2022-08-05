@@ -22,7 +22,6 @@ export default function Animation() {
             Animated.timing(colorAnim, {
                 toValue: 1,
                 duration: 3000,
-                easing: Easing.in,
                 useNativeDriver: false
             })
         ]).start();
@@ -41,13 +40,15 @@ export default function Animation() {
                     styles.box, 
                     { backgroundColor: colorAnim.interpolate({ 
                         inputRange: [0, 1],
-                        outputRange: ['blue', 'black']
+                        outputRange: ['blue', 'black'],
+                        easing: Easing.exp
                     })}
                 ]}
             >
                 <Animated.Text style={{ color: colorAnim.interpolate({
                     inputRange: [0, 1],
-                    outputRange: ['black', 'white']
+                    outputRange: ['black', 'white'],
+                    easing: Easing.elastic(5)
                 }) }}>Box 3</Animated.Text>
             </Animated.View>
         </Animated.View>

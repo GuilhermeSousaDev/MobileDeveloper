@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, StyleSheet } from "react-native";
 
 type IParams = {
     route: {
@@ -14,8 +14,8 @@ type IParams = {
 
 export default function Home({ navigation, route }: IParams) {
     return (
-        <View>
-            <Text>Home</Text>
+        <View style={styles.container}>
+            <Text>Screens</Text>
             <Button 
                 title="Touchables Screen" 
                 onPress={() => navigation.navigate('Touchables', { name: 'Touch' })} />
@@ -27,6 +27,19 @@ export default function Home({ navigation, route }: IParams) {
                 title="Animations Screen"
                 onPress={() => navigation.navigate('Animations')}
             />
+            <Button 
+                title="SlideAnimation Screen"
+                onPress={() => navigation.navigate('SlideAnimation')}
+            />
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        
+    }
+});
