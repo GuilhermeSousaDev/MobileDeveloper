@@ -21,8 +21,9 @@ export default function Animation() {
             }),
             Animated.timing(colorAnim, {
                 toValue: 1,
-                duration: 3000,
-                useNativeDriver: false
+                duration: 30000,
+                useNativeDriver: false,
+                isInteraction: false
             })
         ]).start();
     }, [opacityAnim, scaleAnim]);
