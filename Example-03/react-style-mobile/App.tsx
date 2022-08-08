@@ -7,6 +7,7 @@ import Home from './components/Home';
 import { RootStackParamList } from './types';
 import Animation from './components/Animation';
 import SlideAnimation from './components/SlideAnimation';
+import LayoutAnimationC from './components/LayoutAnimation';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen name="Touchables" component={Touchables} />
         <Stack.Screen name="Animations" component={Animation} />
         <Stack.Screen name="SlideAnimation" component={SlideAnimation} />
+        <Stack.Screen name="LayoutAnimation" component={LayoutAnimationC} />
       </Stack.Navigator>
     </NavigationContainer>
   );
