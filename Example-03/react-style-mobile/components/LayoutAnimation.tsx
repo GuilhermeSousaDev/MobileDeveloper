@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   NativeModules,
   LayoutAnimation,
@@ -13,30 +13,26 @@ const { UIManager } = NativeModules;
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
 
-export default class LayoutAnimationC extends React.Component {
-  state = {
-    w: 100,
-    h: 100,
-  };
+export default function LayoutAnimationC() {
+  const [pos, setPos] = useState<{ w: number, h: number }>({ w: 100, h: 100 });
+  const [opacity, setOpacity] = useState<number>(0);
 
-  _onPress = () => {
-    // Animate the update
+  const updateAnimation = useCallback(() => {
     LayoutAnimation.spring();
-    this.setState({w: this.state.w + 15, h: this.state.h + 15})
-  }
+    setOpacity(1);
+    setPos({ w: pos.w + 15, h: pos.h + 15 });
+  }, [pos]);
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={[styles.box, {width: this.state.w, height: this.state.h}]} />
-        <TouchableOpacity onPress={this._onPress}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Press me!</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+  return (
+    <View style={styles.container}>
+      <View style={[styles.box, {width: pos.w, height: pos.h, opacity}]} />
+      <TouchableOpacity onPress={updateAnimation}>
+        <View style={styles.button}>
+          <Text style={styles.buttonText}>Press me!</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
