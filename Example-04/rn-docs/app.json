@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rn-examples",
-    "slug": "rn-examples",
+    "name": "rn-docs",
+    "slug": "rn-docs",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
