@@ -1,27 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Accessible from './components/Accessible';
+import GestureSystem from './components/GestureSystem';
+import Home from './components/Home';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <View
-        onStartShouldSetResponder={() => true}
-        onMoveShouldSetResponder={() => true}
-        onResponderGrant={() => Alert.alert('Alert...')}
-        onResponderMove={(evt) => console.log(evt)}
-      >
-        <Text>Gesture System</Text>
-      </View>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='home'>
+        <Stack.Screen name="home" component={Home} />
+        <Stack.Screen name="accessible" component={Accessible} />
+        <Stack.Screen name="gestureSystem" component={GestureSystem} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
