@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { StyleSheet, View, Text, Alert } from 'react-native';
+import { StyleSheet, View, Text, Alert, Button } from 'react-native';
 
 export default function Accessible() {
-    const [count, setCount] = useState<number>(0);
+    const [count, setCount] = useState(0);
 
     return (
         <View 
@@ -16,7 +16,7 @@ export default function Accessible() {
             <Text>Text 1</Text>
             <Text>Text 2</Text>
 
-            <Button onPress={() => setCount(count + 1)} />
+            <Button title="Change Count" onPress={() => setCount(count + 1)} />
 
             <View accessibilityLiveRegion='assertive'>
                 <Text>{ count }</Text>
