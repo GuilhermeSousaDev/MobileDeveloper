@@ -1,6 +1,9 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 
 export default function GestureSystem() {
+    const [items] = useState(['apple', 'orange', 'banana']);
+
     return (
         <View style={styles.container}>
             <View
@@ -11,6 +14,17 @@ export default function GestureSystem() {
             >
                 <Text>Gesture System</Text>
             </View>
+            <FlatList 
+                data={items}
+                renderItem={({ item }) => (
+                    <View 
+                        onMoveShouldSetResponder={() => true}
+                        onResponderMove={ev => console.log(ev)}
+                    >
+                        <Text>{ item }</Text>
+                    </View>
+                )}
+            />
         </View>
     )
 }
