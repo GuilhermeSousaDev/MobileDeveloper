@@ -1,8 +1,18 @@
-import { useCallback, useState } from 'react';
-import { View, Text, FlatList, Button, ScrollView } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import { View, Text, FlatList, Button, ScrollView, AsyncStorage } from 'react-native';
 
 export default function Car() {
     const [car, setCar] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+            const carStorage = await AsyncStorage.getItem('car').length;
+
+            if (!car.length && carStorage) {
+                setCar(carStorage);
+            }
+        })();
+    }, []);
 
     const products = [
         {
@@ -35,6 +45,12 @@ export default function Car() {
         setCar([...car, product]);
     }, [car]);
 
+    const removeProductCar = useCallback(async i => {
+        setCar(car.filter(item => item !== car[i]));
+
+        await AsyncStorage.setItem('car', car);
+    }, [car]);
+
     return (
         <ScrollView horizontal={true}>
             <Text>Products</Text>
@@ -53,11 +69,13 @@ export default function Car() {
 
             <FlatList 
                 data={car}
-                renderItem={({ item }) => (
+                keyExtractor={(_, index) => index}
+                renderItem={({ item, index }) => (
                     <View>
                         <Text>{ item.name }</Text>
                         <Text>Price: { `R$ ${item.price},00` }</Text>
                         <Text>Stock: { item.stock }</Text>
+                        <Button onPress={() => removeProductCar(index)} title="Remove" />
                     </View>
                 )}
             />
