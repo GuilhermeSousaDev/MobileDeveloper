@@ -4,6 +4,7 @@ import Accessible from './components/Accessible';
 import GestureSystem from './components/GestureSystem';
 import Home from './components/Home';
 import Car from './components/Car';
+import NativeProps from './components/NativeProps';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ export default function App() {
         <Stack.Screen name="accessible" component={Accessible} />
         <Stack.Screen name="gestureSystem" component={GestureSystem} />
         <Stack.Screen name="car" component={Car} />
+        <Stack.Screen name="nativeProps" component={NativeProps} />
       </Stack.Navigator>
     </NavigationContainer>
   );
